@@ -1,0 +1,68 @@
+# depslib dependency file v1.0
+1575957648 source:d:\lin\desktop\c51_粪便处理器\keil_project\delayer.c
+	"STC15.h"
+	"Delayer.h"
+	<intrins.h>
+
+1575950952 source:d:\lin\desktop\c51_粪便处理器\keil_project\inductor.c
+	"STC15.h"
+	"IO_PORT.h"
+	"Delayer.h"
+	<intrins.h>
+	"WatchDog.h"
+	"SignalCpu.h"
+	"motor.h"
+
+1575964556 source:d:\lin\desktop\c51_粪便处理器\keil_project\motor.c
+	"STC15.h"
+	"IO_PORT.h"
+	"Delayer.h"
+	"motor.h"
+
+1575952872 source:d:\lin\desktop\c51_粪便处理器\keil_project\signalcpu.c
+	"STC15.h"
+	"Delayer.h"
+	"IO_PORT.h"
+	"motor.h"
+	"WatchDog.h"
+	"inductor.h"
+	"Water.h"
+
+1575957674 d:\lin\desktop\c51_粪便处理器\keil_project\delayer.h
+
+1575947848 source:d:\lin\desktop\c51_粪便处理器\keil_project\water.c
+	"STC15.h"
+	"IO_PORT.h"
+
+1576039726 d:\lin\desktop\c51_粪便处理器\keil_project\io_port.h
+	"STC15.h"
+
+1575957426 source:d:\lin\desktop\c51_粪便处理器\keil_project\main.c
+	"STC15.h"
+	"SignalCpu.h"
+	"Delayer.h"
+	"Water.h"
+	"IO_PORT.h"
+	"motor.h"
+	"WatchDog.h"
+	"inductor.h"
+
+1572937330 d:\lin\desktop\c51_粪便处理器\keil_project\signalcpu.h
+
+1572411030 d:\lin\desktop\c51_粪便处理器\keil_project\water.c
+	<reg52.h>
+	"IO_PORT.h"
+
+1573015614 d:\lin\desktop\c51_粪便处理器\keil_project\water.h
+
+1575957384 d:\lin\desktop\c51_粪便处理器\keil_project\motor.h
+
+1572849238 d:\lin\desktop\c51_粪便处理器\keil_project\watchdog.h
+
+1575950450 source:d:\lin\desktop\c51_粪便处理器\keil_project\watchdog.c
+	"STC15.h"
+
+1574047352 d:\lin\desktop\c51_粪便处理器\keil_project\inductor.h
+
+1574229900 d:\lin\desktop\c51_粪便处理器\keil_project\stc15.h
+

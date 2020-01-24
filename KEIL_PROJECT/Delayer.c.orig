@@ -1,0 +1,221 @@
+#include "STC15.h"
+#include "Delayer.h"
+#include <intrins.h>
+#include "IO_PORT.h"
+#define maxtime 2147483647
+
+void Timer0Interrupt(void) ;
+void Timer4Interrupt(void);
+void (*interrupt_callback)(void);
+
+char _time_ms2=0;
+unsigned int moter2_runtime=0;
+char moter2_runFinish=1;
+unsigned int motor2_pulMs=10; //每多少毫秒一个脉冲信号
+unsigned int now_tf;
+unsigned long int now;
+
+
+
+void InitTimer4(void (*callback)(void))
+{
+
+	T4T3M |= 0x20;		//定时器时钟1T模式
+	T4L = 0xCD;		//设置定时初值
+	T4H = 0xD4;		//设置定时初值
+    interrupt_callback=callback;
+    IE2|=0x40;
+    T4T3M |= 0x80;		//定时器4开始计时
+
+}
+
+
+/**************
+脉冲信号函数
+计时器频率1HZ
+*****************/
+void Timer4Interrupt(void) interrupt 20
+{
+    interrupt_callback();
+}
+
+
+
+/**************
+脉冲信号函数
+计时器频率1HZ
+*****************/
+
+
+void Timer3Init(void)		//1毫秒@11.0592MHz
+{
+    T4T3M |= 0x02;		//定时器时钟1T模式
+    T3L = 0xCD;		//设置定时初值
+    T3H = 0xD4;		//设置定时初值
+    IE2 |=0x20; //允许中断
+
+}
+void Timer3_reset()
+{
+//重置T3
+    T4T3M &= ~0x08;		//定时器3开始计时
+    T3L = 0xCD;		//设置定时初值
+    T3H = 0xD4;		//设置定时初值
+    _time_ms2=0;
+}
+void Timer3_run()
+{
+    T4T3M |= 0x08;		//定时器3开始计时
+}
+
+void Timer3Interrupt(void) interrupt 19
+{
+    _time_ms2++;
+    moter2_runtime--;
+    if(_time_ms2 < motor2_pulMs)
+    {
+        return;
+    }
+    if(moter2_runtime < 1)
+    {
+        moter2_runFinish=1;
+        moter2_runtime=0;
+    }
+    io_motor2_pul=~io_motor2_pul;
+    _time_ms2=0;
+
+}
+
+
+
+
+
+/*****波特率发生器*****/
+
+
+
+void UartInit(void)		//9600bps@11.0592MHz
+{
+    S2CON = 0x50;		//8位数据,可变波特率
+    AUXR |= 0x04;		//定时器2时钟为Fosc,即1T
+    T2L = 0xE0;		//设定定时初值
+    T2H = 0xFE;		//设定定时初值
+    AUXR |= 0x10;		//启动定时器2
+}
+
+
+
+
+/*******************定时器********************************/
+void InitTimer0(void)
+{
+    AUXR |= 0x80;		//定时器时钟1T模式
+    TMOD &= 0xF0;		//设置定时器模式
+    TL0 = 0xCD;		//设置定时初值
+    TH0 = 0xD4;		//设置定时初值
+    TF0 = 0;		//清除TF0标志
+    EA=1;
+    ET0=1;
+    TR0 = 1;		//定时器0开始计时
+
+}
+
+
+void Timer0Interrupt(void) interrupt 1
+{
+    now++;
+    if (now >=maxtime)
+    {
+        now_tf++;
+        now=0;
+    }
+}
+
+
+
+/*******************Delay***************************/
+
+
+void delay2s()		//@11.0592MHz
+{
+    unsigned char i, j, k;
+
+    _nop_();
+    _nop_();
+    i = 85;
+    j = 12;
+    k = 155;
+    do
+    {
+        do
+        {
+            while (--k);
+        }
+        while (--j);
+    }
+    while (--i);
+}
+
+
+void delay1ms()		//@11.0592MHz
+{
+    unsigned char i, j;
+
+    _nop_();
+    _nop_();
+    _nop_();
+    i = 11;
+    j = 190;
+    do
+    {
+        while (--j);
+    }
+    while (--i);
+}
+
+
+
+void delay500ms()		//@11.0592MHz
+{
+    unsigned char i, j, k;
+
+    _nop_();
+    _nop_();
+    i = 22;
+    j = 3;
+    k = 227;
+    do
+    {
+        do
+        {
+            while (--k);
+        }
+        while (--j);
+    }
+    while (--i);
+}
+
+
+
+void delay3s()		//@11.0592MHz
+{
+    unsigned char i, j, k;
+
+    _nop_();
+    _nop_();
+    i = 127;
+    j = 18;
+    k = 107;
+    do
+    {
+        do
+        {
+            while (--k);
+        }
+        while (--j);
+    }
+    while (--i);
+}
+
+
+

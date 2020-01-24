@@ -1,0 +1,13 @@
+Change Component Designator: Old Designator=JP0 New Designator=JP1
+Change Component Designator: Old Designator=JP1 New Designator=JP3
+Change Component Designator: Old Designator=JP3 New Designator=JP4
+Change Component Designator: Old Designator=LedTest New Designator=LedTest1
+Change Component Designator: Old Designator=Q_LED_TEST New Designator=Q_LED_TEST1
+Change Component Designator: Old Designator=R6 New Designator=R7
+Change Component Designator: Old Designator=R7 New Designator=R9
+Change Component Designator: Old Designator=R8 New Designator=R10
+Change Component Designator: Old Designator=R? New Designator=R6
+Change Component Designator: Old Designator=R? New Designator=R8
+Change Component Designator: Old Designator=SP1 New Designator=SP2
+Change Component Designator: Old Designator=SP2 New Designator=SP3
+Change Component Designator: Old Designator=SP3 New Designator=SP1

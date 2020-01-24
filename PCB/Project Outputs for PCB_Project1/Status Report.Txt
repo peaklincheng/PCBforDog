@@ -1,0 +1,10 @@
+Output: Test Point Report
+Type  : Test Points
+From  : Variant [[No Variations]] of Project [PCB_Project1.PrjPCB]
+   Generated File[Assembly Testpoint Report for PCB1πÊ‘ÚOK_∆ÃÕ≠.csv]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 11:20:39 On 2020/1/15

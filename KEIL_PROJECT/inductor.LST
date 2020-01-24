@@ -1,0 +1,153 @@
+C51 COMPILER V9.54   INDUCTOR                                                              12/11/2019 13:16:48 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE INDUCTOR
+OBJECT MODULE PLACED IN cb_obj\Debug\inductor.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.exe inductor.c OBJECT(cb_obj\Debug\inductor.obj) SMALL DEBUG OBJECTEXTEND IN
+                    -CDIR(D:\Keil_v5\C51\INC)
+
+line level    source
+
+   1          #include "STC15.h"
+   2          #include "IO_PORT.h"
+   3          #include "Delayer.h"
+   4          #include <intrins.h>
+   5          #include "WatchDog.h"
+   6          #include "SignalCpu.h"
+   7          #include "motor.h"
+   8          
+   9          //感应器触发时间间隔，在这里个时间内只能触发一次
+  10          #define interval_time 900
+  11          
+  12          //感应数据采样数量
+  13          #define array_inductor_data 30
+  14          
+  15          
+  16          char inductor_en=0;
+  17          void inductor_init(void);
+  18          void inductor_do(void);
+  19          void table_inductor_data_clear();
+  20          void table_orderBy_asc(char *p);
+  21          void table_inductor_data_write(unsigned char d);
+  22          
+  23          
+  24          
+  25          unsigned long int indector_last_time=interval_time;
+  26          unsigned long int inductor_en_time_start=0; //感应器触发时间
+  27          
+  28          
+  29          unsigned char table_inductor_data[array_inductor_data];
+  30          char table_inductor_data_i=0;
+  31          
+  32          
+  33          
+  34          void inductor_init(void)
+  35          {
+  36   1          //初始化函数，中断启动..
+  37   1          table_inductor_data_clear();
+  38   1          EA=1;
+  39   1          IT0=0;
+  40   1          EX0=1;//开始关闭感应器中断，需要手动打开
+  41   1      
+  42   1      
+  43   1      }
+  44          
+  45          
+  46          void table_inductor_data_clear()
+  47          {
+  48   1          //感应数据数组清零
+  49   1          char i=0;
+  50   1          table_inductor_data_i=0;
+  51   1          for (i=0; i<array_inductor_data; i++)
+  52   1          {
+  53   2              table_inductor_data[i]=0;
+  54   2      
+C51 COMPILER V9.54   INDUCTOR                                                              12/11/2019 13:16:48 PAGE 2   
+
+  55   2          }
+  56   1      }
+  57          
+  58          
+  59          void table_inductor_data_write(unsigned char da)
+  60          {
+  61   1          if (table_inductor_data_i >=array_inductor_data)
+  62   1          {
+  63   2              table_inductor_data_i=0;
+  64   2          }
+  65   1          table_inductor_data[table_inductor_data_i]=da;
+  66   1          table_inductor_data_i++;
+  67   1      }
+  68          
+  69          
+  70          void table_orderBy_asc( char *table)
+  71          {
+  72   1          char i,ii;
+  73   1          unsigned char temp;
+  74   1          for (i=0; i<(array_inductor_data-1); i++)
+  75   1          {
+  76   2              for (ii=1; ii<array_inductor_data; ii++)
+  77   2              {
+  78   3                  if (table[ii-1]>table[ii])
+  79   3                  {
+  80   4                      temp= table[ii-1];
+  81   4                      table[ii-1]=table[ii];
+  82   4                      table[ii]=temp;
+  83   4      
+  84   4                  }
+  85   3              }
+  86   2          }
+  87   1      }
+  88          
+  89          
+  90          
+  91          //限位开关中断函数 NEW！！
+  92          void inductor_interrupe(void) interrupt 0
+  93          {
+  94   1      
+  95   1      
+  96   1      }
+  97          
+  98          
+  99          
+ 100          
+ 101          
+ 102          
+ 103          
+ 104          void  inductor_do(void)
+ 105          {
+ 106   1          if ((now-indector_last_time)>interval_time)
+ 107   1          {
+ 108   2              inductor_en=1;
+ 109   2              indector_last_time=now;
+ 110   2          }
+ 111   1      
+ 112   1          else if(indector_last_time==interval_time)
+ 113   1          {
+ 114   2              //如果是第一次执行则忽略间隔时间
+ 115   2              inductor_en=1;
+ 116   2              indector_last_time=now;
+C51 COMPILER V9.54   INDUCTOR                                                              12/11/2019 13:16:48 PAGE 3   
+
+ 117   2      
+ 118   2          }
+ 119   1          else
+ 120   1          {
+ 121   2              EX0=1;
+ 122   2          }
+ 123   1      
+ 124   1      }
+ 125          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    258    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     40       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

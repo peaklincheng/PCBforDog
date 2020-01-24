@@ -1,0 +1,148 @@
+C51 COMPILER V9.54   SERIALPORT                                                            01/22/2020 09:41:24 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE SERIALPORT
+OBJECT MODULE PLACED IN .\Objects\serialPort.obj
+COMPILER INVOKED BY: C:\sd\Keil_v5\C51\BIN\C51.EXE serialPort.c OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings\ser
+                    -ialPort.lst) TABS(2) OBJECT(.\Objects\serialPort.obj)
+
+line level    source
+
+   1          #include <stdio.h>
+   2          #include <STC15.h>
+   3          #include <stdlib.h>
+   4          #include "Delayer.h"
+   5          #include "inductor.h"
+   6          
+   7          #define order_count 4
+   8          
+   9          void printf_inductor_data_shake();
+  10          void printf_inductor_data_swtich();
+  11          void printf_inductor_data_between();
+  12          bit is_order=0;
+  13          
+  14          unsigned char xdata S2CON_data[order_count]= {0x00};
+  15          unsigned char xdata S2CON_data_i=order_count;
+  16          
+  17          
+  18          void read_string_interrupt() interrupt 8 using 1
+  19          {
+  20   1          unsigned long int xdata S2CON_data_exc=0;
+  21   1          if (S2CON&0x01)
+  22   1          {
+  23   2              S2CON&=0xFE;
+  24   2              if(!is_order) {
+  25   3                  switch (S2BUF)
+  26   3                  {
+  27   4                  case 0x00 :
+  28   4                      printf("ALL DATA { ");
+  29   4                      printf("VALUE OF NOW: %lu \n",now);
+  30   4                      printf_inductor_data_shake();
+  31   4                      printf_inductor_data_swtich();
+  32   4                      printf_inductor_data_between();
+  33   4                      printf(" }");
+  34   4                      break;
+  35   4                  case 0x01 : //Êä³öµ¥Æ¬»únow
+  36   4                      printf("VALUE OF NOW: %lu \n",now);
+  37   4                      break;
+  38   4                  case 0x02 :
+  39   4                      printf_inductor_data_shake();
+  40   4                      break;
+  41   4                  case 0x03 :
+  42   4                      printf_inductor_data_swtich();
+  43   4                      break;
+  44   4                  case 0x04 :
+  45   4                      printf_inductor_data_between();
+  46   4                      break;
+  47   4                  case 0xD0:
+  48   4                      table_inductor_clear_all();
+  49   4                      printf("Do Clear all data success \n");
+  50   4                      break;
+  51   4                  case 0xD1:
+  52   4                      printf("The analyze - shake:%lu \n- switch:%lu \n",table_analyze().data_shake,table_analyz
+             -e().data_switch);
+  53   4                      break;
+C51 COMPILER V9.54   SERIALPORT                                                            01/22/2020 09:41:24 PAGE 2   
+
+  54   4                  case 0xFE:
+  55   4                      is_order=1;
+  56   4                      printf("Enter order mode\n");
+  57   4                      break;
+  58   4                  case 0xFF:
+  59   4                      is_order=0;
+  60   4                      printf("Execute and Close order mode\n");
+  61   4                      break;
+  62   4                  default :
+  63   4                      printf("NO RESULT");
+  64   4                  }
+  65   3              }
+  66   2              else {
+  67   3                  if (S2CON_data_i >=order_count) {
+  68   4                      for (S2CON_data_i=(order_count-1);S2CON_data_i>=0; S2CON_data_i--) {
+  69   5                          S2CON_data_exc=S2CON_data_exc<<8;
+  70   5                          S2CON_data_exc |=S2CON_data[S2CON_data_i];
+  71   5                      }
+  72   4                      S2CON_data_i=0;
+  73   4                  }
+  74   3                  S2CON_data[S2CON_data_i]=S2BUF;
+  75   3                  S2CON_data_i++; 
+  76   3                  }
+  77   2          }
+  78   1      }
+  79          
+  80          
+  81          void printf_inductor_data_shake()
+  82          {
+  83   1          char idata i;
+  84   1          printf("The shake data :\n");
+  85   1          for (i=0; i<table_array_inductor_shake_data_count; i++)
+  86   1          {
+  87   2      
+  88   2              printf("%lu \n",table_inductor_data_shake[i]);
+  89   2          }
+  90   1      
+  91   1      }
+  92          
+  93          void printf_inductor_data_swtich()
+  94          {
+  95   1          char idata i;
+  96   1          printf("The switch data :\n");
+  97   1          for (i=0; i<table_array_inductor_data_switch_count; i++)
+  98   1          {
+  99   2      
+ 100   2              printf("%lu \n",table_inductor_data_switch[i]);
+ 101   2          }
+ 102   1      
+ 103   1      }
+ 104          
+ 105          
+ 106          void printf_inductor_data_between()
+ 107          {
+ 108   1          char idata i;
+ 109   1          printf("The between data :\n");
+ 110   1          for (i=0; i<(table_array_inductor_data_between_count); i++)
+ 111   1          {
+ 112   2              printf("%lu \n",table_inductor_data_between[i]);
+ 113   2          }
+ 114   1      
+ 115   1      }
+C51 COMPILER V9.54   SERIALPORT                                                            01/22/2020 09:41:24 PAGE 3   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    635    ----
+   CONSTANT SIZE    =    224    ----
+   XDATA SIZE       =      5       4
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----       3
+   BIT SIZE         =      1    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

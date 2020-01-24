@@ -1,0 +1,96 @@
+Designator Footprint               Mid X         Mid Y         Ref X         Ref Y         Pad X         Pad Y TB      Rotation Comment        
+
+B1         CR2032×ù           3051.182mil   4862.205mil    3078.74mil   4744.095mil   3051.182mil   4468.504mil  T         90.00 CR2032         
+BUZ1       BUZ5-12-0R5-9MM   2893.701mil   3877.952mil   2893.701mil   3877.953mil   2795.276mil   3877.952mil  T          0.00 SD1209T5-A1    
+C1         CE5-6R5X5-1mm     3897.638mil    4803.15mil   3897.638mil    4803.15mil   3799.212mil    4803.15mil  T          0.00 104            
+C2         CE5-6R5X5-1mm     6899.606mil    5669.29mil   6899.606mil    5669.29mil    6801.18mil    5669.29mil  T          0.00 0.1uf          
+C4         CE5-6R5X5-1mm     7231.575mil       6046mil   7231.575mil       6046mil    7133.15mil       6046mil  T          0.00 0.1uf          
+D1         LED2-D5R9X8R7     6968.504mil   6771.654mil   6968.504mil   6771.654mil   6918.504mil   6771.654mil  T          0.00 333-2SYGD/S530-E2
+D2         LED2-D5X5         5857.086mil   4547.244mil   5857.087mil   4547.244mil   5807.086mil   4547.244mil  T          0.00 C535A WJN CU0V0231
+D3         LED2-D5X5          6486.22mil   4547.244mil    6486.22mil   4547.244mil    6436.22mil   4547.244mil  T          0.00 C535A WJN CU0V0231
+D4         LED2-D5X5         7115.354mil   4547.244mil   7115.354mil   4547.244mil   7065.354mil   4547.244mil  T          0.00 C535A WJN CU0V0231
+D5         DO-35             5629.922mil   7677.166mil   5629.921mil   7519.685mil   5629.922mil   7519.686mil  T         90.00 1N457          
+D6         DO-41                 5413mil   8262.149mil       5413mil   8065.298mil       5413mil   8065.298mil  T         90.00 1N4007-E3/73   
+F1         FUSE-24R1X3RX29R7-TH   7007.874mil   7677.165mil   7007.874mil   7677.165mil   7007.874mil   7476.378mil  T         90.00 FUSE           
+F2         FUSE-16R5X3RX24R9-TH   6574.804mil   7834.647mil   6574.803mil   7834.646mil   6574.804mil    7633.86mil  T         90.00 R30-600        
+IC1        DIP4-300          5590.552mil   5019.686mil   5590.551mil   5019.685mil   5540.552mil   4869.686mil  T         90.00 817            
+IC2        DIP4-300          6545.222mil    5039.37mil   6545.222mil    5039.37mil   6495.222mil    4889.37mil  T         90.00 817            
+IC3        DIP4-300          6863.446mil    5039.37mil   6863.446mil    5039.37mil   6813.446mil    4889.37mil  T         90.00 817            
+IC4        DIP4-300          5866.142mil   8287.402mil   5866.142mil   8287.402mil   6016.142mil   8237.402mil  T        180.00 817            
+J0         XH8P-2R54-TH      2244.094mil   8217.716mil   2244.094mil   8217.716mil   2244.094mil   8567.716mil  T        270.00 W7810811120AB  
+J1         XH8P-2R54-TH      2244.094mil   7050.766mil   2244.095mil   7050.767mil   2244.094mil   7400.766mil  T        270.00 W7810811120AB  
+J2         XH8P-2R54-TH      2253.926mil   5921.674mil   2253.925mil   5921.674mil   2253.926mil   5571.674mil  T         90.00 W7810811120AB  
+J3         XH8P-2R54-TH      2253.926mil   4754.724mil   2253.925mil   4754.724mil   2253.926mil   4404.724mil  T         90.00 W7810811120AB  
+J5         XH4P-2R54-TH       2263.78mil   3877.952mil    2263.78mil   3877.953mil    2263.78mil   3727.952mil  T         90.00 W7810411120AB  
+J6         CON2P-2R54-TH     6968.504mil   6377.952mil   6968.504mil   6377.953mil   6968.504mil   6327.952mil  T         90.00 PAS1251-0201A01B1BA
+J7         CON3P-2R54-TH     6062.992mil   6553.544mil   6062.992mil   6553.544mil   6062.992mil   6453.544mil  T         90.00 PAS1251-0301A01B1BA
+J-Power1   KF301-5.0-2P      7677.166mil   8288.976mil   7677.165mil   8388.976mil   7677.166mil   8188.976mil  T         90.00 KF301-5.08-2p  
+J-Power2   KF301-5.0-2P      7677.166mil   7777.166mil   7677.165mil   7877.165mil   7677.166mil   7677.166mil  T         90.00 KF301-5.08-2p  
+J-Power3   KF301-5.0-2P      7677.166mil   7265.354mil   7677.165mil   7365.354mil   7677.166mil   7165.354mil  T         90.00 KF301-5.08-2p  
+J-Power4   KF301-5.0-2P      7677.166mil   6753.544mil   7677.165mil   6853.543mil   7677.166mil   6653.544mil  T         90.00 KF301-5.08-2p  
+J-POWER-LM KF301-5.0-2P      7677.166mil   4647.244mil   7677.165mil   4747.244mil   7677.166mil   4547.244mil  T         90.00 KF301-5.08-2p  
+JK1        SRD-C_B           6564.999mil   3920.528mil   6801.219mil   4121.315mil   6801.219mil   4121.314mil  T        270.00 SRD-05VDC-SL-C 
+JK3        SRD-C_B           7334.221mil   3920.528mil   7570.441mil   4121.315mil   7570.442mil   4121.314mil  T        270.00 SRD-05VDC-SL-C 
+KF2        KF301-5.0-2P      6537.008mil   3228.346mil   6637.008mil   3228.347mil   6437.008mil   3228.346mil  T          0.00 KF301-5.08-2p  
+KF3        KF301-5.0-2P      5943.308mil   3228.346mil   6043.307mil   3228.347mil   5843.308mil   3228.346mil  T          0.00 KF301-5.08-2p  
+KF4        KF301-5.0-2P      7144.094mil   3228.346mil   7244.095mil   3228.347mil   7044.094mil   3228.346mil  T          0.00 KF301-5.08-2p  
+LedTest1   LED2-D5X5         3720.472mil   5796.456mil   3720.472mil   5796.457mil   3720.472mil   5746.456mil  T         90.00 333-2SUBD/S400-A4
+Q2         TO-92-3-EBC       4856.656mil   7362.205mil   4856.656mil   7362.205mil   4856.656mil   7362.205mil  T          0.00 2N3904         
+Q3         TO-92-3-EBC       4554.312mil   7362.205mil   4554.312mil   7362.205mil   4554.312mil   7362.205mil  T          0.00 2N3904         
+Q4         TO-92-3-EBC       4251.969mil   7362.205mil   4251.969mil   7362.205mil   4251.969mil   7362.205mil  T          0.00 2N3904         
+Q5         TO-92-3-EBC       3414.567mil   3779.528mil   3414.567mil   3779.528mil   3414.567mil   3779.528mil  T          0.00 2N3904         
+Q7         TO-92-3-EBC       4887.926mil   6496.063mil   4887.926mil   6496.063mil   4887.926mil   6496.063mil  T          0.00 2N3904         
+Q8         TO-92-3-EBC       5239.239mil   6496.063mil   5239.239mil   6496.063mil   5239.239mil   6496.063mil  T          0.00 2N3904         
+Q9         TO-92-3-EBC       5590.551mil   6496.063mil   5590.551mil   6496.063mil   5590.551mil   6496.063mil  T          0.00 2N3904         
+Q10        TO220A            6968.504mil   8600.788mil   6968.504mil   8600.787mil   6968.504mil   8500.788mil  T         90.00 IRF540         
+Q11        TO-92-3-EBC       5872.775mil       5000mil   5872.775mil       5000mil   5872.775mil       5000mil  T          0.00 2N3904         
+Q12        TO-92-3-EBC       6190.998mil       5000mil   6190.998mil       5000mil   6190.998mil       5000mil  T          0.00 2N3904         
+Q13        TO-92-3-EBC       7145.669mil    4921.26mil   7145.669mil    4921.26mil   7145.669mil    4921.26mil  T          0.00 2N3904         
+Q14        TO220A            5866.142mil   8661.418mil   5866.142mil   8661.417mil   5766.142mil   8661.418mil  T          0.00 IRFZ44         
+Q_LED_TEST TO-92-3-EBC       3956.693mil   6161.417mil   3956.693mil   6161.417mil   3956.693mil   6161.417mil  T          0.00 2N3904         
+R1         RY0R25W           4469.566mil       3800mil   4468.504mil   3799.213mil   4469.566mil    3603.15mil  T         90.00 166            
+R2         RY0R25W           4725.472mil   7914.173mil   4724.409mil   7913.386mil   4725.472mil   7717.322mil  T         90.00 100R           
+R3         RY0R25W           4554.514mil   7914.173mil   4553.452mil   7913.386mil   4554.514mil   7717.322mil  T         90.00 100R           
+R4         RY0R25W           4383.556mil   7914.173mil   4382.493mil   7913.386mil   4383.556mil   7717.322mil  T         90.00 100R           
+R5         RY0R25W           4212.598mil   7914.173mil   4211.535mil   7913.386mil   4212.598mil   7717.322mil  T         90.00 100R           
+R6         RY0R25W            4285.84mil       3800mil   4284.777mil   3799.213mil    4285.84mil    3603.15mil  T         90.00 1K             
+R7         RY0R25W           4233.346mil   4941.733mil   4232.283mil   4940.945mil   4233.346mil   4744.882mil  T         90.00 5.1K           
+R8         RY0R25W           4422.322mil   4941.733mil    4421.26mil   4940.945mil   4422.322mil   4744.882mil  T         90.00 250            
+R9         RY0R25W             4611.3mil   4941.733mil   4610.236mil   4940.945mil     4611.3mil   4744.882mil  T         90.00 5.1K           
+R10        RY0R25W           4800.276mil   4941.733mil   4799.212mil   4940.945mil   4800.276mil   4744.882mil  T         90.00 1.2k           
+R11        RY0R25W           4989.252mil   4941.733mil   4988.189mil   4940.945mil   4989.252mil   4744.882mil  T         90.00 1.2k           
+R12        RY0R25W           5178.228mil   4941.733mil   5177.165mil   4940.945mil   5178.228mil   4744.882mil  T         90.00 1.2k           
+R13        RY0R25W           4102.112mil       3800mil    4101.05mil   3799.213mil   4102.112mil    3603.15mil  T         90.00 5.1K           
+R14        RY0R25W           3918.386mil       3800mil   3917.323mil   3799.213mil   3918.386mil    3603.15mil  T         90.00 5.1K           
+R15        RY0R25W           6536.496mil   6811.811mil   6535.433mil   6811.024mil   6536.496mil    6614.96mil  T         90.00 250            
+R16        RY0R25W            4226.22mil   5798.583mil   4225.157mil   5797.795mil    4226.22mil   5601.732mil  T         90.00 1.2K           
+R17        RY0R25W            4446.22mil   5798.583mil   4445.157mil   5797.795mil    4446.22mil   5601.732mil  T         90.00 300            
+R18        RY0R25W            4666.22mil   5798.583mil   4665.157mil   5797.795mil    4666.22mil   5601.732mil  T         90.00 1.2K           
+R19        RY0R25W            4886.22mil   5798.583mil   4885.157mil   5797.795mil    4886.22mil   5601.732mil  T         90.00 300            
+R20        RY0R25W             5103.7mil   5798.583mil   5102.638mil   5797.795mil     5103.7mil   5601.732mil  T         90.00 1K             
+R21        RY0R25W             5333.7mil   5798.583mil   5332.638mil   5797.795mil     5333.7mil   5601.732mil  T         90.00 1K             
+R22        RY0R25W            5532.56mil   5798.583mil   5531.496mil   5797.795mil    5532.56mil   5601.732mil  T         90.00 400            
+R23        RY0R25W            5729.41mil   5798.583mil   5728.346mil   5797.795mil    5729.41mil   5601.732mil  T         90.00 400            
+R24        RY0R25W           5934.232mil   5798.583mil   5933.169mil   5797.795mil   5934.232mil   5601.732mil  T         90.00 1.2K           
+R25        RY0R25W           6146.732mil   5798.583mil   6145.669mil   5797.795mil   6146.732mil   5601.732mil  T         90.00 300            
+R26        RY0R25W           6359.232mil   5798.583mil   6358.169mil   5797.795mil   6359.232mil   5601.732mil  T         90.00 1K             
+R27        RY0R25W           6571.732mil   5798.583mil   6570.669mil   5797.795mil   6571.732mil   5601.732mil  T         90.00 400            
+R28        RY0R25W            5886.89mil   7638.583mil   5885.827mil   7637.795mil    5886.89mil   7441.732mil  T         90.00 1k             
+R29        RY0R25W           6142.796mil   7638.583mil   6141.732mil   7637.795mil   6142.796mil   7441.732mil  T         90.00 400            
+SP1        XH3P-2R54-TH      2813.386mil   3267.716mil   2813.386mil   3267.716mil   2713.386mil   3267.716mil  T          0.00                
+SP2        XH3P-2R54-TH      3405.512mil   3267.716mil   3405.512mil   3267.716mil   3305.512mil   3267.716mil  T          0.00                
+SP3        XH3P-2R54-TH      3974.804mil   3267.716mil   3974.803mil   3267.717mil   3874.804mil   3267.716mil  T          0.00                
+TGEN1      ÆÌÍ­Ìõ                7736.22mil   6259.842mil   7776.221mil   5844.842mil    7736.22mil   6259.842mil  T         90.00 T£¿             
+TUGEN1     ÆÌÍ­Ìõ               5295.276mil   3208.662mil   5335.276mil   2793.661mil   5295.276mil   3208.662mil  T         90.00 T£¿             
+TUVCC1     ÆÌÍ­Ìõ               4744.094mil   3208.662mil   4784.095mil   2793.661mil   4744.094mil   3208.662mil  T         90.00 T£¿             
+TVCC1      ÆÌÍ­Ìõ                7736.22mil   5767.716mil   7776.221mil   5352.717mil    7736.22mil   5767.716mil  T         90.00 T£¿             
+U1         DIP40             3120.276mil    7425.59mil   2795.276mil   8375.591mil   2795.276mil    8375.59mil  T          0.00 STC15F2K60S2_PDIP40
+U2         S8MK+1_L          3090.551mil   5807.086mil   3090.551mil   5807.087mil   2998.032mil   5882.086mil  T          0.00 DS3231MZ+      
+V1         TO220A            7677.166mil    5254.33mil   7677.165mil   5254.331mil   7677.166mil    5354.33mil  T        270.00 7805           
+Y1         CON7P-2R54-TH     4329.134mil   8681.102mil   4329.134mil   8681.102mil   4029.134mil   8681.102mil  T          0.00 315½ÓÊÕÄ£¿é        
+KF1        KF301-5.0-2P      6458.268mil   8681.102mil   6358.268mil   8681.102mil   6558.268mil   8681.102mil  T        180.00 KF301-5.08-2p  
+JK2        SRD-C_B           5795.779mil   3920.526mil   6031.999mil   4121.314mil       6032mil   4121.314mil  T        270.00 SRD-05VDC-SL-C 
+Q6         TO-92-3-EBC       4536.614mil   6496.063mil   4536.614mil   6496.063mil   4536.614mil   6496.063mil  T          0.00 2N3904         
+Q1         TO-92-3-EBC           5159mil       7361mil       5159mil       7361mil       5159mil       7361mil  T          0.00 2N3904         
+C3         CE5-6R5X5-1mm     7330.575mil       5516mil   7330.575mil       5516mil    7232.15mil       5516mil  T          0.00 0.33uf         
+

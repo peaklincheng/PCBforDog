@@ -1,0 +1,330 @@
+C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE INDUCTOR
+OBJECT MODULE PLACED IN .\Objects\inductor.obj
+COMPILER INVOKED BY: C:\sd\Keil_v5\C51\BIN\C51.EXE inductor.c OMF2 OPTIMIZE(3,SPEED) BROWSE DEBUG PRINT(.\Listings\induc
+                    -tor.lst) TABS(2) OBJECT(.\Objects\inductor.obj)
+
+line level    source
+
+   1          #include "STC15.h"
+   2          #include "IO_PORT.h"
+   3          #include "Delayer.h"
+   4          #include <intrins.h>
+   5          #include "WatchDog.h"
+   6          #include "SignalCpu.h"
+   7          #include "motor.h"
+   8          #include "threading.h"
+   9          #include <math.h>
+  10          #include <inductor.h>
+  11          #include <string.h>
+  12          //#include <stdio.h>
+  13          //¸ÐÓ¦Êý¾Ý²ÉÑùÊýÁ¿
+  14          
+  15          
+  16          char idata inductor_en=0;
+  17          void inductor_init(void);
+  18          void inductor_do(void);
+  19          
+  20          void table_orderBy_asc( unsigned long int *table);
+  21          void table_inductor_shake_data_write(unsigned long int da);
+  22          void table_inductor_switch_data_write(unsigned long int da);
+  23          
+  24          unsigned long int idata indector_last_time=0;
+  25          unsigned long int idata inductor_en_time_start=0; //¸ÐÓ¦Æ÷´¥·¢Ê±¼ä
+  26          
+  27          //Êý×é¼Ó5ÊÇÎªÁË·ÀÖ¹ÅÜ·É
+  28          unsigned long int xdata table_inductor_data_switch[table_array_inductor_data_switch_count+1];//´¢´æÏÞÎ»¸ÐÓ
+             -¦´¥·¢Ê±¼ä
+  29          unsigned long int xdata table_inductor_data_shake[table_array_inductor_shake_data_count+1];//´¢´æÕð¶¯¸ÐÓ¦´
+             -¥·¢Ê±¼ä
+  30          unsigned long int xdata table_inductor_data_between[table_array_inductor_data_between_count];//´¢´æ¸ÐÓ¦ÖµÖ
+             -Ð¼ä²î
+  31          int xdata table_inductor_shake_data_i=0;
+  32          int xdata table_inductor_switch_data_i=0;
+  33          unsigned long int xdata inductor_last_shake_time=0;
+  34          
+  35          
+  36          
+  37          void inductor_init(void)
+  38          {
+  39   1          //³õÊ¼»¯º¯Êý£¬ÖÐ¶ÏÆô¶¯..
+  40   1          table_inductor_clear_all();
+  41   1          EA=1;
+  42   1          IT0=1;
+  43   1          IT1=0;
+  44   1          inductor_open_all();
+  45   1      }
+  46          
+  47          
+  48          
+  49          
+  50          /*********************************************************¸ÐÓ¦Æ÷Êý¾Ý********S*/
+  51          void table_inductor_clear_all()
+C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 2   
+
+  52          {
+  53   1          //¸ÐÓ¦Êý¾ÝÊý×éÇåÁã
+  54   1          int i=0;
+  55   1          table_inductor_shake_data_i=0;
+  56   1          table_inductor_switch_data_i=0;
+  57   1          memset(table_inductor_data_shake,'\0',sizeof(table_inductor_data_shake));
+  58   1          memset(table_inductor_data_switch,'\0',sizeof(table_inductor_data_switch));
+  59   1          memset(table_inductor_data_between,'\0',sizeof(table_inductor_data_between));
+  60   1      
+  61   1      }
+  62          
+  63          
+  64          
+  65          void table_inductor_shake_data_write(unsigned long int da)
+  66          //Ð´ÈëÊý×é
+  67          {
+  68   1          unsigned long int xdata *p;
+  69   1          if (table_inductor_shake_data_i == (table_array_inductor_shake_data_count))
+  70   1          {
+  71   2              table_inductor_shake_data_i=0;
+  72   2          }
+  73   1          p=&table_inductor_data_shake[table_inductor_shake_data_i];
+  74   1          *p=da;
+  75   1          table_inductor_shake_data_i++;
+  76   1      }
+  77          
+  78          
+  79          
+  80          
+  81          void table_inductor_switch_data_write(unsigned long int da)
+  82          //Ð´ÈëÊý×é
+  83          {
+  84   1          unsigned long int xdata *p;
+  85   1          if (table_inductor_switch_data_i ==(table_array_inductor_data_switch_count))
+  86   1          {
+  87   2              table_inductor_switch_data_i=0;
+  88   2          }
+  89   1          p=&table_inductor_data_switch[table_inductor_switch_data_i];
+  90   1          *p=da;
+  91   1          table_inductor_switch_data_i++;
+  92   1      }
+  93          
+  94          
+  95          
+  96          
+  97          void table_orderBy_asc( unsigned long int *table)
+  98          //Êý×é´ÓÐ¡µ½´óÅÅÁÐ
+  99          {
+ 100   1          int i,ii;
+ 101   1          unsigned long int idata temp;
+ 102   1          unsigned long int *p1,*p2;
+ 103   1          for (i=0; i<(table_array_inductor_shake_data_count-1); i++)
+ 104   1          {
+ 105   2              for (ii=1; ii<table_array_inductor_shake_data_count; ii++)
+ 106   2              {
+ 107   3                  if (table[ii-1]>table[ii])
+ 108   3                  {
+ 109   4                      p1=&table[ii-1];
+ 110   4                      p2=&table[ii];
+ 111   4                      temp= *p1;
+ 112   4                      *p1=*p2;
+ 113   4                      *p2=temp;
+C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 3   
+
+ 114   4      //                memcpy(&temp,&table[ii-1],sizeof(temp));
+ 115   4      //                memcpy(&table[ii-1],&table[ii],sizeof(temp));
+ 116   4      //                memcpy(&table[ii],&temp,sizeof(temp));
+ 117   4                  }
+ 118   3              }
+ 119   2          }
+ 120   1      }
+ 121          
+ 122          /*********************************************************¸ÐÓ¦Æ÷Êý¾Ý********E*/
+ 123          
+ 124          
+ 125          
+ 126          
+ 127          /**********************************************************¸ÐÓ¦Æ÷·ÖÎö**********S*/
+ 128          void table_math_between()
+ 129          {
+ 130   1          //¼ÆËãÊ±¼ä¼ä¸ôÖµ
+ 131   1          int i;
+ 132   1          unsigned long int *p;
+ 133   1          table_orderBy_asc(table_inductor_data_shake);
+ 134   1          for (i=0; i<(table_array_inductor_shake_data_count-1); i++)
+ 135   1          {
+ 136   2              if (table_inductor_data_shake[i+1] && table_inductor_data_shake[i]>0)
+ 137   2              {
+ 138   3                  p=&table_inductor_data_between[i];
+ 139   3                  *p=table_inductor_data_shake[i+1]-table_inductor_data_shake[i];
+ 140   3      
+ 141   3              }
+ 142   2              else
+ 143   2              {
+ 144   3                  table_inductor_data_between[i]=0;
+ 145   3              }
+ 146   2          }
+ 147   1      }
+ 148          
+ 149          struct InductorAnalyzeResult table_analyze()
+ 150          {
+ 151   1          //¼ÆËã´óÓÚ3sºÁÃëµÄÕð¶¯¼ä¸ôÊý¾Ý¡£
+ 152   1          int idata i,ii;
+ 153   1          struct InductorAnalyzeResult intersect= {0,0};
+ 154   1          unsigned long int idata ss=0;
+ 155   1          table_math_between();
+ 156   1          for (i=0; i<(table_array_inductor_shake_data_count); i++)
+ 157   1          {
+ 158   2              if (table_inductor_data_between[i]> 1000 ) //ºöÂÔÉÙÓÚ3SµÄ¼ä¸ô
+ 159   2              {
+ 160   3                  ss+=table_inductor_data_between[i];
+ 161   3              }
+ 162   2          }
+ 163   1          for (i=0; i<table_array_inductor_data_switch_count; i++)
+ 164   1      
+ 165   1          {
+ 166   2              for (ii=0; ii<table_array_inductor_shake_data_count; ii++)
+ 167   2              {
+ 168   3                  if(abs(table_inductor_data_switch[i]-table_inductor_data_shake[ii])<1000 & table_inductor_data
+             -_switch[i] && table_inductor_data_shake[ii] )
+ 169   3                      //ÅÐ¶ÏÕð¶¯¸ÐÓ¦ºÍÏÞÎ»¸ÐÓ¦´¥·¢Ê±¼äÊÇ·ñÓÐÏà½»£¬Îó²î500MS
+ 170   3                  {
+ 171   4                      intersect.data_switch=table_inductor_data_switch[i];
+ 172   4                      intersect.data_shake=table_inductor_data_shake[ii];
+ 173   4                      i=table_array_inductor_data_switch_count;//ÍË³öÑ­»·
+ 174   4                      break;
+C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 4   
+
+ 175   4                  }
+ 176   3      
+ 177   3              }
+ 178   2          }
+ 179   1          if (ss>10000 && intersect.data_switch)
+ 180   1              //Èç¹ûÕð¶¯¸ÐÓ¦Êý¾Ý¼äÓÐ´óÓÚ10ÃëµÄ£¬ÇÒÓÐÏà½»
+ 181   1          {
+ 182   2              return intersect;
+ 183   2          }
+ 184   1          else
+ 185   1          {
+ 186   2              intersect.data_switch=0;
+ 187   2              intersect.data_shake=0;
+ 188   2              return intersect;
+ 189   2          }
+ 190   1      
+ 191   1      
+ 192   1      }
+ 193          
+ 194          
+ 195          
+ 196          
+ 197          
+ 198          
+ 199          
+ 200          
+ 201          
+ 202          
+ 203          
+ 204          /**********************************************************¸ÐÓ¦Æ÷·ÖÎö**********E*/
+ 205          
+ 206          
+ 207          
+ 208          
+ 209          
+ 210          
+ 211          
+ 212          
+ 213          
+ 214          
+ 215          
+ 216          
+ 217          
+ 218          
+ 219          
+ 220          
+ 221          
+ 222          
+ 223          
+ 224          /*****************************************************¸ÐÓ¦Æ÷ÖÐ¶Ï************S*/
+ 225          //Õð¶¯¿ª¹ØÖÐ¶Ïº¯Êý NEW£¡£¡
+ 226          void inductor_shake_interrupe(void) interrupt 0
+ 227          {
+ 228   1      
+ 229   1          if(now-inductor_last_shake_time <1000)
+ 230   1          {
+ 231   2      
+ 232   2              return;
+ 233   2          }
+ 234   1          EX0=0;
+ 235   1          inductor_last_shake_time=now;
+ 236   1          table_inductor_shake_data_write(now);
+C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 5   
+
+ 237   1          EX0=1;
+ 238   1      }
+ 239          
+ 240          //ÏÞÎ»¿ª¹Ø¸ÐÓ¦Æ÷
+ 241          void inductor_ray_interrupt(void) interrupt 2
+ 242          {
+ 243   1          EX1=0;
+ 244   1          inductor_en=1;
+ 245   1          if (now-inductor_en_time_start >500)
+ 246   1          {
+ 247   2              table_inductor_switch_data_write(now);
+ 248   2              inductor_en_time_start=now;
+ 249   2          }
+ 250   1          EX1=1;
+ 251   1      }
+ 252          
+ 253          /*****************************************************¸ÐÓ¦Æ÷ÖÐ¶Ï************E*/
+ 254          
+ 255          
+ 256          
+ 257          
+ 258          
+ 259          /******************************************************¸ÐÓ¦Æ÷¿ª¹Ø***********S***/
+ 260          
+ 261          void inductor_close_all()
+ 262          {
+ 263   1          EX0=0;
+ 264   1          EX1=0;
+ 265   1      }
+ 266          
+ 267          
+ 268          void inductor_open_all()
+ 269          {
+ 270   1          EX0=1;
+ 271   1          EX1=1;
+ 272   1      }
+ 273          
+ 274          /******************************************************¸ÐÓ¦Æ÷¿ª¹Ø**********E****/
+ 275          
+ 276          
+ 277          
+ 278          
+ 279          
+ 280          
+ 281          
+ 282          
+ 283          
+ 284          
+ 285          
+ 286          
+ 287          
+ 288          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1681    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =    536    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      40
+   IDATA SIZE       =      9      12
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 6   
+
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,47 @@
+Removed Pin From Net: NetName=VCC Pin=F1-1
+Removed Pin From Net: NetName=GND Pin=J-Power1-2
+Added Component: Designator=Q9(TO220A)
+Added Pin To Net: NetName=VCC Pin=C1-1
+Added Pin To Net: NetName=VCC Pin=F1-2
+Added Pin To Net: NetName=VCC Pin=Q9-1
+Added Pin To Net: NetName=GND Pin=Q9-3
+Added Pin To Net: NetName=VCC Pin=TVCC1-1
+Added Pin To Net: NetName=NetC2_1 Pin=C2-1
+Added Pin To Net: NetName=NetC2_1 Pin=J3-1
+Added Pin To Net: NetName=NetC2_1 Pin=J-POWER-LM1-1
+Added Pin To Net: NetName=NetC2_1 Pin=V1-1
+Added Net: Name=NetC2_1
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=R9-1
+Added Net: Name=NetD1_2
+Added Pin To Net: NetName=NetF1_1 Pin=F1-1
+Added Pin To Net: NetName=NetF1_1 Pin=J-Power1-1
+Added Net: Name=NetF1_1
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Pin To Net: NetName=NetJ1_2 Pin=R4-2
+Added Net: Name=NetJ1_2
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Pin To Net: NetName=NetJ1_3 Pin=R3-2
+Added Net: Name=NetJ1_3
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-4
+Added Pin To Net: NetName=NetJ1_4 Pin=R2-2
+Added Net: Name=NetJ1_4
+Added Pin To Net: NetName=NetJ1_5 Pin=J1-5
+Added Pin To Net: NetName=NetJ1_5 Pin=R1-2
+Added Net: Name=NetJ1_5
+Added Pin To Net: NetName=NetJ2_1 Pin=J2-1
+Added Pin To Net: NetName=NetJ2_1 Pin=R5-2
+Added Net: Name=NetJ2_1
+Added Pin To Net: NetName=NetJ2_2 Pin=J2-2
+Added Pin To Net: NetName=NetJ2_2 Pin=R6-2
+Added Net: Name=NetJ2_2
+Added Pin To Net: NetName=NetJ2_3 Pin=J2-3
+Added Pin To Net: NetName=NetJ2_3 Pin=R7-2
+Added Net: Name=NetJ2_3
+Added Pin To Net: NetName=NetJ2_4 Pin=J2-4
+Added Pin To Net: NetName=NetJ2_4 Pin=R8-2
+Added Net: Name=NetJ2_4
+Added Pin To Net: NetName=NetJ-Power1_2 Pin=J-Power1-2
+Added Pin To Net: NetName=NetJ-Power1_2 Pin=Q9-2
+Added Net: Name=NetJ-Power1_2
+Added Member To Class: ClassName=U_µÁ‘¥ Member=Component Q9 IRF540

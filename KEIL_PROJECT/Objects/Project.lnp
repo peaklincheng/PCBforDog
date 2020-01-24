@@ -1,0 +1,13 @@
+".\Objects\main.obj",
+".\Objects\SignalCpu.obj",
+".\Objects\Delayer.obj",
+".\Objects\Motor.obj",
+".\Objects\Water.obj",
+".\Objects\inductor.obj",
+".\Objects\WatchDog.obj",
+".\Objects\IO_PORT.obj",
+".\Objects\serialPort.obj",
+".\Objects\PUTCHAR.obj" 
+TO ".\Objects\Project" 
+
+PRINT(".\Listings\Project.map") REMOVEUNUSED 

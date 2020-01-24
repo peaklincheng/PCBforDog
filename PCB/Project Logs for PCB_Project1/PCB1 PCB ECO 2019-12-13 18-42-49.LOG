@@ -1,0 +1,8 @@
+Removed Member From Class: ClassName=U_电源 Member=J2
+Removed Member From Class: ClassName=U_STC15_U1 Member=J3
+Removed Member From Class: ClassName=U_STC15_U1 Member=R9
+Added Pin To Net: NetName=GND Pin=TGEN1-1
+Added Pin To Net: NetName=VCC Pin=TVCC1-1
+Added Member To Class: ClassName=U_STC15_U1 Member=Component J1 61300411121
+Added Member To Class: ClassName=U_电源 Member=Component J3 PAS1251-0201A01B1BA
+Added Member To Class: ClassName=U_STC15_U1 Member=Component R1 100R

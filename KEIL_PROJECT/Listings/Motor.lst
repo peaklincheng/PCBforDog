@@ -1,0 +1,227 @@
+C51 COMPILER V9.54   MOTOR                                                                 01/22/2020 09:41:22 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MOTOR
+OBJECT MODULE PLACED IN .\Objects\Motor.obj
+COMPILER INVOKED BY: C:\sd\Keil_v5\C51\BIN\C51.EXE Motor.c OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings\Motor.ls
+                    -t) TABS(2) OBJECT(.\Objects\Motor.obj)
+
+line level    source
+
+   1          #include "STC15.h"
+   2          #include "IO_PORT.h"
+   3          #include "Delayer.h"
+   4          #include "motor.h"
+   5          #include <math.h>
+   6          #include "WatchDog.h"
+   7          #include "inductor.h"
+   8          //电机方向左正右负
+   9          
+  10          
+  11          void set_speed(void);
+  12          unsigned int _fDistanceToPulse(unsigned char t,int distance);
+  13          void motor2_run_for_time();
+  14          void _init_motor_interrupt_swich();
+  15          char xdata zero_i;
+  16          
+  17          void motor_init(void)
+  18          {
+  19   1      
+  20   1          _init_motor_interrupt_swich();
+  21   1          Timer3Init();
+  22   1      }
+  23          
+  24          
+  25          
+  26          void motor2_set_dir(void)
+  27          {
+  28   1          io_motor2_dir=~io_motor2_dir;
+  29   1      
+  30   1      }
+  31          
+  32          
+  33          void motor2_set_ena(void)
+  34          {
+  35   1          io_motor2_ena=~io_motor2_ena;
+  36   1      
+  37   1      }
+  38          
+  39          void motor_run()
+  40          {
+  41   1          io_motor_ena=1;
+  42   1      
+  43   1      }
+  44          void motor_stop()
+  45          {
+  46   1          io_motor_ena=0;
+  47   1      
+  48   1      }
+  49          
+  50          void motor2_run()
+  51          {
+  52   1          io_motor2_ena=1;
+  53   1          Timer3_run();
+  54   1      
+C51 COMPILER V9.54   MOTOR                                                                 01/22/2020 09:41:22 PAGE 2   
+
+  55   1      }
+  56          void motor2_stop()
+  57          {
+  58   1          Timer3_stop();
+  59   1          io_motor2_ena=0;
+  60   1      
+  61   1      }
+  62          
+  63          
+  64          
+  65          /***在t秒时间内移动丝杆distance 毫米****/
+  66          void motor2_move(int distance,unsigned char t)
+  67          {
+  68   1          //distance 不能超过150，t和distance 比值 最大 1：1.5
+  69   1          motor2_stop();
+  70   1          _init_motor_interrupt_swich();
+  71   1          inductor_close_all();
+  72   1          motor2_runFinish=0;
+  73   1          if (_fDistanceToPulse(t,distance)>0)
+  74   1          {
+  75   2              motor2_run_for_time();
+  76   2          };
+  77   1          inductor_open_all();
+  78   1      }
+  79          
+  80          
+  81          
+  82          
+  83          
+  84          
+  85          
+  86          
+  87          
+  88          void motor2_run_for_time()
+  89          {
+  90   1          motor2_run();
+  91   1          while (1)
+  92   1          {
+  93   2              watch_feed_dog();//喂狗
+  94   2              if (motor2_pulse<=0)
+  95   2              {
+  96   3                  motor2_stop();
+  97   3                  break;
+  98   3              }
+  99   2          }
+ 100   1      }
+ 101          
+ 102          
+ 103          
+ 104          void motor2_make_zero()
+ 105          {
+ 106   1          //步进电机归零
+ 107   1          _init_motor_interrupt_swich();
+ 108   1          motor2_stop();
+ 109   1          for (zero_i=0; zero_i<(rod_length+1)/10; zero_i++)
+ 110   1          {
+ 111   2              motor2_move(10,1);
+ 112   2          }
+ 113   1      }
+ 114          
+ 115          
+ 116          void _init_motor_interrupt_swich()
+C51 COMPILER V9.54   MOTOR                                                                 01/22/2020 09:41:22 PAGE 3   
+
+ 117          {
+ 118   1          //电机限位开关初始化中断
+ 119   1          INT_CLKO |=0x10; //INT3 中断允许位
+ 120   1      }
+ 121          
+ 122          
+ 123          
+ 124          
+ 125          
+ 126          void motor2_Switch_interrupt() interrupt 10
+ 127          {
+ 128   1          motor2_stop();
+ 129   1          _fDistanceToPulse(1,-5);
+ 130   1          motor2_run();
+ 131   1          zero_i=125;
+ 132   1      }
+ 133          
+ 134          
+ 135          
+ 136          
+ 137          /**计算脉冲,输入完成所需时间和移动距离mm（正数为向前，负数向后）
+ 138          直接设置脉冲数量，和返回脉冲值。*/
+ 139          
+ 140          unsigned int _fDistanceToPulse(unsigned char t,int distance)
+ 141          {
+ 142   1          unsigned long int pulse;
+ 143   1          unsigned int idata tempc;
+ 144   1          unsigned long int idata* pp;
+ 145   1          unsigned long int idata* pmp;
+ 146   1          if (distance >0)
+ 147   1          {
+ 148   2              io_motor2_dir=1;
+ 149   2          }
+ 150   1          else
+ 151   1          {
+ 152   2              io_motor2_dir=0;
+ 153   2          }
+ 154   1          pmp=&pulse;
+ 155   1          pp=&motor2_pulse;
+ 156   1          Timer3_stop();
+ 157   1          *pmp=(unsigned int)(abs(distance)*50*4*2); //*32是驱动器分频 *2是脉冲只认上沿
+ 158   1          tempc=65536-(int)(11059200.0*((float)t / *pmp));
+ 159   1          if(tempc<=0)
+ 160   1          {
+ 161   2              return 0;
+ 162   2          }
+ 163   1          else
+ 164   1          {
+ 165   2              T3L = (tempc<<8)>>8;    //设置定时初值
+ 166   2              T3H = tempc>>8;   //设置定时初值
+ 167   2              *pp=pulse;
+ 168   2              return (int)tempc;
+ 169   2          }
+ 170   1      
+ 171   1      }
+ 172          
+ 173          
+ 174          
+ 175          
+ 176          
+ 177          
+ 178          
+C51 COMPILER V9.54   MOTOR                                                                 01/22/2020 09:41:22 PAGE 4   
+
+ 179          
+ 180          
+ 181          
+ 182          
+ 183          
+ 184          
+ 185          
+ 186          
+ 187          
+ 188          
+ 189          
+ 190          
+ 191          
+ 192          
+ 193          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    386    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      12
+   IDATA SIZE       =   ----       2
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

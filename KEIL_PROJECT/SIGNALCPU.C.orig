@@ -1,0 +1,215 @@
+#include <reg52.h>
+#include "Delayer.h"
+#include "IO_PORT.h"
+#include "motor.h"
+#include "WatchDog.h"
+#include "inductor.h"
+#include "Water.h"
+
+#define workTime 60  //每次启动时间s
+#define timerTime 7200 //定时启动时间s
+
+void timer_run(void);
+void timeLine(void);
+void en_bt(void);
+void runLine(void);
+void handDo_init(void);
+void inductor_line(void);
+char runLine_state=0;//流水线的状态，0开始执行，1执行完成
+
+unsigned long int timer_start;
+
+
+
+void timeLine(void)
+{
+    timer_start=now;//初始化定时函数变量
+    handDo_init();//手动启动初始化中断
+    while(1)
+    {
+
+        watch_feed_dog();//喂狗
+        en_bt();
+        inductor_line();
+        timer_run();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+void runLine(void)
+{
+    unsigned long int temp_start,temp_part_start;
+    char part1,part2,part3;
+    char part_time=workTime/3;
+    runLine_state=0;
+
+    io_water=1;
+
+    /**< 放水后等待30S */
+    temp_start=now;
+    while ((now-temp_start)<30 && io_water==1 && io_motor_ena==0 )
+    {
+        en_bt();
+        watch_feed_dog();//喂狗
+    }
+    /**< 放水后等待30S */
+
+    part1=part_time*0.6;
+    part2=part_time*0.8;
+    part3=part_time*1;
+    temp_start=now;
+    io_motor_ena=0; //开启电机
+    while( io_water==1 && io_motor_ena==0)
+    {
+        if ( (now-temp_start) >workTime )
+        {
+            io_motor_ena=1; //悬空电机
+            io_water=0;//关闭水阀
+            runLine_state=1;
+            break;
+        }
+        en_bt();
+        temp_part_start=now;
+        watch_feed_dog();//喂狗
+        while ( io_water==1 && io_motor_ena==0)
+        {
+					  en_bt();
+            watch_feed_dog();//喂狗
+            if ( temp_part_start<=now && now<(temp_part_start+part1) )
+            {
+                if (io_motor_dir!=0)
+                {
+                    io_motor_dir=0;
+                } //正向转
+
+            }
+            else if( (temp_part_start+part1)<=now && now < (temp_part_start+part2))
+            {
+                if (io_motor_dir!=1)
+                {
+                    io_motor_dir=1;
+                }
+            }
+            else if( (temp_part_start+part2)<=now && now < (temp_part_start+part3))
+            {
+                if (io_motor_dir!=0)
+                {
+                    io_motor_dir=0;
+                }
+            }
+            else if(now>temp_part_start+part_time)
+            {
+                break;
+            }
+
+        }
+    }
+}
+
+
+
+
+
+
+/********
+en_bt 函数
+检查按键，并作出相应功能
+此函数不涉及中断
+*********/
+
+void en_bt(void)
+{
+    if(io_bt_motor_dir==1)
+    {
+        delay500ms();
+        if(io_bt_motor_dir==1)
+        {
+					
+            motor_set_dir();//设置方向
+					delay500ms();
+        }
+
+    }
+
+    if(io_bt_motor_ena==1)
+    {
+        delay500ms();
+        if(io_bt_motor_ena==1)
+        {
+					
+            motor_set_ena();//暂停悬空
+					delay500ms();
+        }
+
+    }
+    if(io_bt_water_ena==1)
+    {
+        delay500ms();
+        if(io_bt_water_ena==1)
+					
+        {
+            water_set();//暂停悬空
+					delay500ms();
+        }
+
+    }
+
+}
+
+
+void timer_run(void)
+{
+//定时启动函数
+    if(now>= (timer_start+timerTime) )
+    {
+
+        runLine();
+        timer_start=now;
+    }
+
+
+}
+
+
+void handDo_init(void)
+{
+//手动启动中断
+    EA=1;
+    IT1=0;
+    EX1=1;
+}
+
+void handDo_interrupt(void) interrupt 2
+{
+    EX1=0;
+    runLine();
+    EX1=1;
+
+
+}
+
+void inductor_line(void)
+{
+//感应器时间线
+    if(inductor_en==1)
+    {
+        runLine();
+        if (runLine_state==1)
+        {
+            inductor_en=0;
+
+        }
+
+
+    }
+
+
+}

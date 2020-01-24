@@ -1,0 +1,25 @@
+
+#include <STC15.h>
+#include <threading.h>
+
+int a[9];
+
+
+
+
+
+void main(void)
+{
+
+    a[0]=1;
+    while (1)
+
+
+{
+};
+
+
+}
+
+
+

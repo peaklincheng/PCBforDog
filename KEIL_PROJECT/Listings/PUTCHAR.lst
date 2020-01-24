@@ -1,0 +1,59 @@
+C51 COMPILER V9.54   PUTCHAR                                                               01/22/2020 09:41:24 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE PUTCHAR
+OBJECT MODULE PLACED IN .\Objects\PUTCHAR.obj
+COMPILER INVOKED BY: C:\sd\Keil_v5\C51\BIN\C51.EXE PUTCHAR.C OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings\PUTCHA
+                    -R.lst) TABS(2) OBJECT(.\Objects\PUTCHAR.obj)
+
+line level    source
+
+   1          /***********************************************************************/
+   2          /*  This file is part of the C51 Compiler package                      */
+   3          /*  Copyright KEIL ELEKTRONIK GmbH 1990 - 2002                         */
+   4          /***********************************************************************/
+   5          /*                                                                     */
+   6          /*  PUTCHAR.C:  This routine is the general character output of C51.   */
+   7          /*  You may add this file to a uVision2 project.                       */
+   8          /*                                                                     */
+   9          /*  To translate this file use C51 with the following invocation:      */
+  10          /*     C51 PUTCHAR.C <memory model>                                    */
+  11          /*                                                                     */
+  12          /*  To link the modified PUTCHAR.OBJ file to your application use the  */
+  13          /*  following Lx51 invocation:                                         */
+  14          /*     Lx51 <your object file list>, PUTCHAR.OBJ <controls>            */
+  15          /*                                                                     */
+  16          /***********************************************************************/
+  17          
+  18          #include <STC15.h>
+  19          
+  20          
+  21          char putchar(char c) using 1 {
+  22   1          IE2&=~0x01;//关闭串口中断
+  23   1          S2BUF=c;
+  24   1          while(!(S2CON&0x02));
+  25   1          S2CON&=0xFD;
+  26   1          IE2|=0x01;//开启串口中断
+  27   1          return c;
+  28   1      }
+  29          
+  30          
+  31          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     17    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

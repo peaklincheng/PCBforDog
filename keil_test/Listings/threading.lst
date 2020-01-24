@@ -1,0 +1,33 @@
+C51 COMPILER V9.54   THREADING                                                             12/19/2019 20:15:00 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE THREADING
+OBJECT MODULE PLACED IN .\Objects\threading.obj
+COMPILER INVOKED BY: C:\sd\Keil_v5\C51\BIN\C51.EXE threading.c OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings\thre
+                    -ading.lst) TABS(2) OBJECT(.\Objects\threading.obj)
+
+line level    source
+
+   1          #include <math.h>
+   2          #include <STC15.h>
+   3          #include "threading.h"
+   4          #include <stdlib.h>
+   5          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

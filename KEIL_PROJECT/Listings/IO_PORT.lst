@@ -1,0 +1,29 @@
+C51 COMPILER V9.54   IO_PORT                                                               01/22/2020 09:41:24 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE IO_PORT
+OBJECT MODULE PLACED IN .\Objects\IO_PORT.obj
+COMPILER INVOKED BY: C:\sd\Keil_v5\C51\BIN\C51.EXE IO_PORT.c OMF2 OPTIMIZE(8,SPEED) BROWSE DEBUG PRINT(.\Listings\IO_POR
+                    -T.lst) TABS(2) OBJECT(.\Objects\IO_PORT.obj)
+
+line level    source
+
+   1          char io_motor_ena_v ;
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

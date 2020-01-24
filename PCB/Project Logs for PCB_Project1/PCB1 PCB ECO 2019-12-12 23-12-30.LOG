@@ -1,0 +1,41 @@
+Added Component: Designator=*(铺铜条)
+Added Component: Designator=C1(CE5-6R5X5-1mm)
+Added Component: Designator=C2(CE5-6R5X5-1mm)
+Added Component: Designator=D1(LED2-D5R9X8R7)
+Added Component: Designator=J1(CON3P-2R54-TH)
+Added Component: Designator=KF1(KF301-5.0-2P)
+Added Component: Designator=KF2(KF301-5.0-2P)
+Added Component: Designator=R1(RY0R25W)
+Added Component: Designator=U1(DIP40)
+Added Component: Designator=V1(TO220A)
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=KF1-2
+Added Pin To Net: NetName=GND Pin=KF2-2
+Added Pin To Net: NetName=GND Pin=R1-2
+Added Pin To Net: NetName=GND Pin=U1-20
+Added Pin To Net: NetName=GND Pin=V1-2
+Added Net: Name=GND
+Added Pin To Net: NetName=NetC1_1 Pin=C1-1
+Added Pin To Net: NetName=NetC1_1 Pin=KF2-1
+Added Pin To Net: NetName=NetC1_1 Pin=V1-1
+Added Net: Name=NetC1_1
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=R1-1
+Added Net: Name=NetD1_2
+Added Pin To Net: NetName=VCC5_LM7805 Pin=C2-1
+Added Pin To Net: NetName=VCC5_LM7805 Pin=D1-1
+Added Pin To Net: NetName=VCC5_LM7805 Pin=J1-3
+Added Pin To Net: NetName=VCC5_LM7805 Pin=V1-3
+Added Net: Name=VCC5_LM7805
+Added Pin To Net: NetName=VCC_S Pin=J1-2
+Added Pin To Net: NetName=VCC_S Pin=U1-18
+Added Net: Name=VCC_S
+Added Pin To Net: NetName=VCC Pin=*-0
+Added Pin To Net: NetName=VCC Pin=J1-1
+Added Pin To Net: NetName=VCC Pin=KF1-1
+Added Net: Name=VCC
+Added Class: Name=U_STC15_U1
+Added Class: Name=U_电源
+Added Room: Name=U_STC15_U1
+Added Room: Name=U_电源

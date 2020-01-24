@@ -1,0 +1,5 @@
+Record=TopLevelDocument|FileName=主结构图.SchDoc
+Record=SheetSymbol|SourceDocument=主结构图.SchDoc|Designator=U_STC15_U1|SchDesignator=U_STC15_U1|FileName=STC15_U1.SchDoc|SymbolType=Normal|RawFileName=STC15_U1.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=主结构图.SchDoc|Designator=U_功率开关|SchDesignator=U_功率开关|FileName=功率开关.SchDoc|SymbolType=Normal|RawFileName=功率开关.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=主结构图.SchDoc|Designator=U_电机控制盒|SchDesignator=U_电机控制盒|FileName=电机控制盒.SchDoc|SymbolType=Normal|RawFileName=电机控制盒.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=主结构图.SchDoc|Designator=U_电源|SchDesignator=U_电源|FileName=电源.SchDoc|SymbolType=Normal|RawFileName=电源.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
