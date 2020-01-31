@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 1   
+C51 COMPILER V9.54   INDUCTOR                                                              01/31/2020 18:36:19 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE INDUCTOR
@@ -44,7 +44,7 @@ line level    source
   31          int xdata table_inductor_shake_data_i=0;
   32          int xdata table_inductor_switch_data_i=0;
   33          unsigned long int xdata inductor_last_shake_time=0;
-  34          
+  34          unsigned long int *inductor_ETS=&inductor_en_time_start;
   35          
   36          
   37          void inductor_init(void)
@@ -62,7 +62,7 @@ line level    source
   49          
   50          /*********************************************************感应器数据********S*/
   51          void table_inductor_clear_all()
-C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 2   
+C51 COMPILER V9.54   INDUCTOR                                                              01/31/2020 18:36:19 PAGE 2   
 
   52          {
   53   1          //感应数据数组清零
@@ -126,7 +126,7 @@ line level    source
  111   4                      temp= *p1;
  112   4                      *p1=*p2;
  113   4                      *p2=temp;
-C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 3   
+C51 COMPILER V9.54   INDUCTOR                                                              01/31/2020 18:36:19 PAGE 3   
 
  114   4      //                memcpy(&temp,&table[ii-1],sizeof(temp));
  115   4      //                memcpy(&table[ii-1],&table[ii],sizeof(temp));
@@ -190,7 +190,7 @@ line level    source
  172   4                      intersect.data_shake=table_inductor_data_shake[ii];
  173   4                      i=table_array_inductor_data_switch_count;//退出循环
  174   4                      break;
-C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 4   
+C51 COMPILER V9.54   INDUCTOR                                                              01/31/2020 18:36:19 PAGE 4   
 
  175   4                  }
  176   3      
@@ -245,7 +245,7 @@ line level    source
  225          //震动开关中断函数 NEW！！
  226          void inductor_shake_interrupe(void) interrupt 0
  227          {
- 228   1      
+ 228   1          
  229   1          if(now-inductor_last_shake_time <1000)
  230   1          {
  231   2      
@@ -254,47 +254,47 @@ line level    source
  234   1          EX0=0;
  235   1          inductor_last_shake_time=now;
  236   1          table_inductor_shake_data_write(now);
-C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 5   
+C51 COMPILER V9.54   INDUCTOR                                                              01/31/2020 18:36:19 PAGE 5   
 
- 237   1          EX0=1;
- 238   1      }
- 239          
- 240          //限位开关感应器
- 241          void inductor_ray_interrupt(void) interrupt 2
- 242          {
- 243   1          EX1=0;
- 244   1          inductor_en=1;
- 245   1          if (now-inductor_en_time_start >500)
- 246   1          {
- 247   2              table_inductor_switch_data_write(now);
- 248   2              inductor_en_time_start=now;
- 249   2          }
- 250   1          EX1=1;
- 251   1      }
- 252          
- 253          /*****************************************************感应器中断************E*/
- 254          
+ 237   1          *inductor_ETS=now;
+ 238   1          EX0=1;
+ 239   1      }
+ 240          
+ 241          //踏板开关感应器
+ 242          void inductor_ray_interrupt(void) interrupt 2
+ 243          {
+ 244   1          EX1=0;
+ 245   1          inductor_en=1;
+ 246   1          if (now-inductor_en_time_start >500)
+ 247   1          {
+ 248   2              table_inductor_switch_data_write(now);
+ 249   2              *inductor_ETS=now;
+ 250   2          }
+ 251   1          EX1=1;
+ 252   1      }
+ 253          
+ 254          /*****************************************************感应器中断************E*/
  255          
  256          
  257          
  258          
- 259          /******************************************************感应器开关***********S***/
- 260          
- 261          void inductor_close_all()
- 262          {
- 263   1          EX0=0;
- 264   1          EX1=0;
- 265   1      }
- 266          
+ 259          
+ 260          /******************************************************感应器开关***********S***/
+ 261          
+ 262          void inductor_close_all()
+ 263          {
+ 264   1          EX0=0;
+ 265   1          EX1=0;
+ 266   1      }
  267          
- 268          void inductor_open_all()
- 269          {
- 270   1          EX0=1;
- 271   1          EX1=1;
- 272   1      }
- 273          
- 274          /******************************************************感应器开关**********E****/
- 275          
+ 268          
+ 269          void inductor_open_all()
+ 270          {
+ 271   1          EX0=1;
+ 272   1          EX1=1;
+ 273   1      }
+ 274          
+ 275          /******************************************************感应器开关**********E****/
  276          
  277          
  278          
@@ -308,18 +308,19 @@ line level    source
  286          
  287          
  288          
+ 289          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1681    ----
+   CODE SIZE        =   1702    ----
    CONSTANT SIZE    =      8    ----
    XDATA SIZE       =    536    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      40
+   DATA SIZE        =      3      40
    IDATA SIZE       =      9      12
-   BIT SIZE         =   ----    ----
-C51 COMPILER V9.54   INDUCTOR                                                              01/22/2020 09:41:23 PAGE 6   
+C51 COMPILER V9.54   INDUCTOR                                                              01/31/2020 18:36:19 PAGE 6   
 
+   BIT SIZE         =   ----    ----
    EDATA SIZE       =   ----    ----
    HDATA SIZE       =   ----    ----
    XDATA CONST SIZE =   ----    ----

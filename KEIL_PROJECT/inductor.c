@@ -31,7 +31,7 @@ unsigned long int xdata table_inductor_data_between[table_array_inductor_data_be
 int xdata table_inductor_shake_data_i=0;
 int xdata table_inductor_switch_data_i=0;
 unsigned long int xdata inductor_last_shake_time=0;
-
+unsigned long int *inductor_ETS=&inductor_en_time_start;
 
 
 void inductor_init(void)
@@ -225,7 +225,7 @@ struct InductorAnalyzeResult table_analyze()
 //震动开关中断函数 NEW！！
 void inductor_shake_interrupe(void) interrupt 0
 {
-
+		
     if(now-inductor_last_shake_time <1000)
     {
 
@@ -234,10 +234,11 @@ void inductor_shake_interrupe(void) interrupt 0
     EX0=0;
     inductor_last_shake_time=now;
     table_inductor_shake_data_write(now);
+		*inductor_ETS=now;
     EX0=1;
 }
 
-//限位开关感应器
+//踏板开关感应器
 void inductor_ray_interrupt(void) interrupt 2
 {
     EX1=0;
@@ -245,7 +246,7 @@ void inductor_ray_interrupt(void) interrupt 2
     if (now-inductor_en_time_start >500)
     {
         table_inductor_switch_data_write(now);
-        inductor_en_time_start=now;
+        *inductor_ETS=now;
     }
     EX1=1;
 }
