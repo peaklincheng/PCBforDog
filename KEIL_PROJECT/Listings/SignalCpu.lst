@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   SIGNALCPU                                                             01/31/2020 18:28:25 PAGE 1   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE SIGNALCPU
@@ -20,9 +20,9 @@ line level    source
   10          
   11          unsigned long int idata timerTime=7200000; //定时启ms
   12          //感应器触发时间间隔，在这里个时间内只能触发一次
-  13          unsigned char idata interval_time=120;
+  13          unsigned long int idata interval_time=900000;
   14          
-  15          
+  15          unsigned long int idata interval_last_time=0;
   16          
   17          void timer_run(void);
   18          void timeLine(void);
@@ -62,7 +62,7 @@ line level    source
   52          
   53          
   54          
-C51 COMPILER V9.54   SIGNALCPU                                                             01/31/2020 18:28:25 PAGE 2   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 2   
 
   55          void runLine(void)
   56          {
@@ -83,7 +83,7 @@ line level    source
   71   1          motor_stop();
   72   1          motor2_make_zero();
   73   1          inductor_open_all();
-  74   1         
+  74   1          interval_last_time=now;
   75   1      }
   76          
   77          
@@ -106,27 +106,27 @@ line level    source
   94          void inductor_run()
   95          {
   96   1          unsigned long int idata temp=(now-inductor_en_time_start);
-  97   1          if(inductor_en==1 && io_inductor==1 && temp>120000)
-  98   1          {
-  99   2              inductor_close_all();//关闭所有感应器
- 100   2              if((table_analyze()).data_shake)
- 101   2              {
- 102   3                  runLine();
- 103   3                  indector_last_time=now;
- 104   3                  inductor_en=0;
- 105   3                  table_inductor_clear_all();
- 106   3              }
- 107   2              else
- 108   2              {
- 109   3                  inductor_en=0;
- 110   3              }
- 111   2              inductor_open_all();//开启所有感应器
- 112   2          }
- 113   1      }
- 114          
+  97   1          unsigned long int idata temp2=(now-interval_last_time);
+  98   1          if(inductor_en==1 && io_inductor==1 && temp>120000 && temp2 > interval_time)
+  99   1          {
+ 100   2              inductor_close_all();//关闭所有感应器
+ 101   2              if((table_analyze()).data_shake)
+ 102   2              {
+ 103   3                  runLine();
+ 104   3                  indector_last_time=now;
+ 105   3                  inductor_en=0;
+ 106   3                  table_inductor_clear_all();
+ 107   3              }
+ 108   2              else
+ 109   2              {
+ 110   3                  inductor_en=0;
+ 111   3              }
+ 112   2              inductor_open_all();//开启所有感应器
+ 113   2          }
+ 114   1      }
  115          
  116          
-C51 COMPILER V9.54   SIGNALCPU                                                             01/31/2020 18:28:25 PAGE 3   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 3   
 
  117          
  118          
@@ -136,62 +136,63 @@ line level    source
  122          
  123          
  124          
- 125          /********
- 126          en_bt 函数
- 127          检查按键，并作出相应功能
- 128          此函数不涉及中断
- 129          *********/
- 130          
- 131          void en_bt(void)
- 132          {
- 133   1          if(io_bt_motor2_back==0)
- 134   1          {
- 135   2             IE2&=~0x01; //串口中断
- 136   2              motor2_move(-10,1);
- 137   2          }
- 138   1      
- 139   1          if(io_bt_motor2_go==0)
- 140   1          {
- 141   2               IE2|=0x01; //串口中断
- 142   2              motor2_move(10,1);
- 143   2          }
- 144   1          if(io_bt_water_ena==0)
- 145   1          {
- 146   2      
- 147   2              delay500ms();
- 148   2              water_set();
- 149   2          }
- 150   1          if(io_bt_inductor_en==0)
- 151   1          {
- 152   2      
- 153   2              runLine();
- 154   2              //io_water=0;
- 155   2              // delay2s();
- 156   2              // io_water=1;
- 157   2              //EX0=1;
- 158   2              // EX1=1;
- 159   2          }
- 160   1      
- 161   1      }
- 162          
+ 125          
+ 126          /********
+ 127          en_bt 函数
+ 128          检查按键，并作出相应功能
+ 129          此函数不涉及中断
+ 130          *********/
+ 131          
+ 132          void en_bt(void)
+ 133          {
+ 134   1          if(io_bt_motor2_back==0)
+ 135   1          {
+ 136   2             IE2&=~0x01; //串口中断
+ 137   2              motor2_move(-10,1);
+ 138   2          }
+ 139   1      
+ 140   1          if(io_bt_motor2_go==0)
+ 141   1          {
+ 142   2               IE2|=0x01; //串口中断
+ 143   2              motor2_move(10,1);
+ 144   2          }
+ 145   1          if(io_bt_water_ena==0)
+ 146   1          {
+ 147   2      
+ 148   2              delay500ms();
+ 149   2              water_set();
+ 150   2          }
+ 151   1          if(io_bt_inductor_en==0)
+ 152   1          {
+ 153   2      
+ 154   2              runLine();
+ 155   2              //io_water=0;
+ 156   2              // delay2s();
+ 157   2              // io_water=1;
+ 158   2              //EX0=1;
+ 159   2              // EX1=1;
+ 160   2          }
+ 161   1      
+ 162   1      }
  163          
  164          
  165          
+ 166          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    384    ----
+   CODE SIZE        =    440    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      1    ----
-   IDATA SIZE       =     13       4
+   IDATA SIZE       =     20       8
    BIT SIZE         =   ----    ----
    EDATA SIZE       =   ----    ----
    HDATA SIZE       =   ----    ----
-   XDATA CONST SIZE =   ----    ----
-C51 COMPILER V9.54   SIGNALCPU                                                             01/31/2020 18:28:25 PAGE 4   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 4   
 
+   XDATA CONST SIZE =   ----    ----
    FAR CONST SIZE   =   ----    ----
 END OF MODULE INFORMATION.
 

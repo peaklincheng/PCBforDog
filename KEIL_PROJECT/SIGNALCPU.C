@@ -10,9 +10,9 @@
 
 unsigned long int idata timerTime=7200000; //定时启ms
 //感应器触发时间间隔，在这里个时间内只能触发一次
-unsigned char idata interval_time=120;
+unsigned long int idata interval_time=900000;
 
-
+unsigned long int idata interval_last_time=0;
 
 void timer_run(void);
 void timeLine(void);
@@ -71,7 +71,7 @@ void runLine(void)
 		motor_stop();
     motor2_make_zero();
     inductor_open_all();
-   
+    interval_last_time=now;
 }
 
 
@@ -94,7 +94,8 @@ void timer_run(void)
 void inductor_run()
 {
 		unsigned long int idata temp=(now-inductor_en_time_start);
-    if(inductor_en==1 && io_inductor==1 && temp>120000)
+		unsigned long int idata temp2=(now-interval_last_time);
+    if(inductor_en==1 && io_inductor==1 && temp>120000 && temp2 > interval_time)
     {
         inductor_close_all();//关闭所有感应器
         if((table_analyze()).data_shake)
