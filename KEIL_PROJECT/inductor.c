@@ -176,7 +176,7 @@ struct InductorAnalyzeResult table_analyze()
 
         }
     }
-    if (ss>10000 && intersect.data_switch)
+    if (ss>6000)
         //如果震动感应数据间有大于10秒的，且有相交
     {
         return intersect;
