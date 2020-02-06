@@ -68,6 +68,7 @@ void runLine(void)
 		motor2_move(-25,4);
     wait(5000);
     water_cl();
+	  wait(5000);
 		motor_stop();
     motor2_make_zero();
     inductor_open_all();
@@ -133,14 +134,16 @@ void en_bt(void)
 {
     if(io_bt_motor2_back==0)
     {
-			 IE2&=~0x01; //串口中断
-        motor2_move(-10,1);
+			delay500ms();
+			  IE2&=~0x01; //串口中断
+        motor2_make_zero();
     }
 
     if(io_bt_motor2_go==0)
     {
+			delay500ms();
 				 IE2|=0x01; //串口中断
-        motor2_move(10,1);
+         io_motor_ena=~io_motor_ena;
     }
     if(io_bt_water_ena==0)
     {
@@ -152,11 +155,7 @@ void en_bt(void)
     {
 
         runLine();
-        //io_water=0;
-        // delay2s();
-        // io_water=1;
-        //EX0=1;
-        // EX1=1;
+
     }
 
 }

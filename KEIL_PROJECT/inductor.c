@@ -155,7 +155,7 @@ struct InductorAnalyzeResult table_analyze()
     table_math_between();
     for (i=0; i<(table_array_inductor_shake_data_count); i++)
     {
-        if (table_inductor_data_between[i]> 1000 ) //忽略少于3S的间隔
+        if (table_inductor_data_between[i]> 500 ) //忽略少于3S的间隔
         {
             ss+=table_inductor_data_between[i];
         }

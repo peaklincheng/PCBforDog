@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 1   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/04/2020 15:00:12 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE SIGNALCPU
@@ -62,7 +62,7 @@ line level    source
   52          
   53          
   54          
-C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 2   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/04/2020 15:00:12 PAGE 2   
 
   55          void runLine(void)
   56          {
@@ -80,53 +80,53 @@ line level    source
   68   1          motor2_move(-25,4);
   69   1          wait(5000);
   70   1          water_cl();
-  71   1          motor_stop();
-  72   1          motor2_make_zero();
-  73   1          inductor_open_all();
-  74   1          interval_last_time=now;
-  75   1      }
-  76          
+  71   1          wait(5000);
+  72   1          motor_stop();
+  73   1          motor2_make_zero();
+  74   1          inductor_open_all();
+  75   1          interval_last_time=now;
+  76   1      }
   77          
   78          
-  79          void timer_run(void)
-  80          {
-  81   1      //定时启动函数
-  82   1          if(now>= (now_start+timerTime ))
-  83   1          {
-  84   2              inductor_close_all();//关闭所有感应器
-  85   2              runLine();
-  86   2              now_start=now;
-  87   2              inductor_open_all();//开启所有感应器
-  88   2          }
-  89   1      }
-  90          
+  79          
+  80          void timer_run(void)
+  81          {
+  82   1      //定时启动函数
+  83   1          if(now>= (now_start+timerTime ))
+  84   1          {
+  85   2              inductor_close_all();//关闭所有感应器
+  86   2              runLine();
+  87   2              now_start=now;
+  88   2              inductor_open_all();//开启所有感应器
+  89   2          }
+  90   1      }
   91          
   92          
   93          
-  94          void inductor_run()
-  95          {
-  96   1          unsigned long int idata temp=(now-inductor_en_time_start);
-  97   1          unsigned long int idata temp2=(now-interval_last_time);
-  98   1          if(inductor_en==1 && io_inductor==1 && temp>120000 && temp2 > interval_time)
-  99   1          {
- 100   2              inductor_close_all();//关闭所有感应器
- 101   2              if((table_analyze()).data_shake)
- 102   2              {
- 103   3                  runLine();
- 104   3                  indector_last_time=now;
- 105   3                  inductor_en=0;
- 106   3                  table_inductor_clear_all();
- 107   3              }
- 108   2              else
- 109   2              {
- 110   3                  inductor_en=0;
- 111   3              }
- 112   2              inductor_open_all();//开启所有感应器
- 113   2          }
- 114   1      }
- 115          
+  94          
+  95          void inductor_run()
+  96          {
+  97   1          unsigned long int idata temp=(now-inductor_en_time_start);
+  98   1          unsigned long int idata temp2=(now-interval_last_time);
+  99   1          if(inductor_en==1 && io_inductor==1 && temp>120000 && temp2 > interval_time)
+ 100   1          {
+ 101   2              inductor_close_all();//关闭所有感应器
+ 102   2              if((table_analyze()).data_shake)
+ 103   2              {
+ 104   3                  runLine();
+ 105   3                  indector_last_time=now;
+ 106   3                  inductor_en=0;
+ 107   3                  table_inductor_clear_all();
+ 108   3              }
+ 109   2              else
+ 110   2              {
+ 111   3                  inductor_en=0;
+ 112   3              }
+ 113   2              inductor_open_all();//开启所有感应器
+ 114   2          }
+ 115   1      }
  116          
-C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 3   
+C51 COMPILER V9.54   SIGNALCPU                                                             02/04/2020 15:00:12 PAGE 3   
 
  117          
  118          
@@ -137,47 +137,46 @@ line level    source
  123          
  124          
  125          
- 126          /********
- 127          en_bt 函数
- 128          检查按键，并作出相应功能
- 129          此函数不涉及中断
- 130          *********/
- 131          
- 132          void en_bt(void)
- 133          {
- 134   1          if(io_bt_motor2_back==0)
- 135   1          {
- 136   2             IE2&=~0x01; //串口中断
- 137   2              motor2_move(-10,1);
- 138   2          }
- 139   1      
- 140   1          if(io_bt_motor2_go==0)
- 141   1          {
- 142   2               IE2|=0x01; //串口中断
- 143   2              motor2_move(10,1);
- 144   2          }
- 145   1          if(io_bt_water_ena==0)
- 146   1          {
- 147   2      
- 148   2              delay500ms();
- 149   2              water_set();
- 150   2          }
- 151   1          if(io_bt_inductor_en==0)
- 152   1          {
- 153   2      
- 154   2              runLine();
- 155   2              //io_water=0;
- 156   2              // delay2s();
- 157   2              // io_water=1;
- 158   2              //EX0=1;
- 159   2              // EX1=1;
- 160   2          }
- 161   1      
- 162   1      }
+ 126          
+ 127          /********
+ 128          en_bt 函数
+ 129          检查按键，并作出相应功能
+ 130          此函数不涉及中断
+ 131          *********/
+ 132          
+ 133          void en_bt(void)
+ 134          {
+ 135   1          if(io_bt_motor2_back==0)
+ 136   1          {
+ 137   2            delay500ms();
+ 138   2              IE2&=~0x01; //串口中断
+ 139   2              motor2_make_zero();
+ 140   2          }
+ 141   1      
+ 142   1          if(io_bt_motor2_go==0)
+ 143   1          {
+ 144   2            delay500ms();
+ 145   2               IE2|=0x01; //串口中断
+ 146   2               io_motor_ena=~io_motor_ena;
+ 147   2          }
+ 148   1          if(io_bt_water_ena==0)
+ 149   1          {
+ 150   2      
+ 151   2              delay500ms();
+ 152   2              water_set();
+ 153   2          }
+ 154   1          if(io_bt_inductor_en==0)
+ 155   1          {
+ 156   2      
+ 157   2              runLine();
+ 158   2      
+ 159   2          }
+ 160   1      
+ 161   1      }
+ 162          
  163          
  164          
  165          
- 166          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
@@ -190,9 +189,9 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    BIT SIZE         =   ----    ----
    EDATA SIZE       =   ----    ----
    HDATA SIZE       =   ----    ----
-C51 COMPILER V9.54   SIGNALCPU                                                             02/01/2020 10:43:03 PAGE 4   
-
    XDATA CONST SIZE =   ----    ----
+C51 COMPILER V9.54   SIGNALCPU                                                             02/04/2020 15:00:12 PAGE 4   
+
    FAR CONST SIZE   =   ----    ----
 END OF MODULE INFORMATION.
 
